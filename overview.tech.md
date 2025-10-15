@@ -1,0 +1,26 @@
+## Công nghệ
+
+- NextJs14
+- Typescript
+- TailwindCSS
+- Shadcn
+- Zustand
+- React hook form
+- Zod
+- Lodash
+- Mongoose - Mongodb
+- Clerk
+- Webhook
+- Vercel
+- Git Github
+- ....
+-Styling: The different ways to style your application in Next.js.
+-Optimizations: optimize images, links, and fonts.
+-Routing: create nested layouts and pages using file-system routing.
+-Data Fetching: set up a database on Vercel, and best practices for fetching and streaming.
+-Search and Pagination: implement search and pagination using URL Search Params.
+-Mutating Data: mutate data using React Server Actions, and revalidate the Next.js cache.
+-Error Handling: How to handle general and 404 not found errors.
+-Form Validation and Accessibility: How to do server-side form validation and tips for improving accessibility.
+-Authentication: How to add authentication to your application using NextAuth.js and Middleware.
+-Metadata: How to add metadata and prepare your application for social sharing.

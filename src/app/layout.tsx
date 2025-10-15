@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { manrope } from "@/utils";
 import Sidebar from "@/components/layout/sidebar";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export const metadata: Metadata = {
   title: "HUST Elearning App",
@@ -15,14 +16,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={manrope.className}>
-        <div className="wrapper grid grid-cols-[300px,minmax(0,1fr)] h-screen">
-          <Sidebar />
-          <main>{children}</main>
-        </div>
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={manrope.className}>
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
+
   );
 }

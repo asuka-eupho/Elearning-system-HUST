@@ -1,19 +1,15 @@
-import IconExplore from "@/components/icons/icon.explore";
-import IconPlay from "@/components/icons/icon.play";
+import { IconPlay, IconExplore } from "@/components/icons";
+import { TMenuItem } from "@/types";
 
-export const menuItems: {
-    url: string;
-    title: string;
-    icon: React.ReactNode;
-}[] = [
-        {
-            url: "/",
-            title: "Khu vực học tập",
-            icon: <IconPlay className="size-5" />
-        },
-        {
-            url: "/explore",
-            title: "Khám phá thêm",
-            icon: <IconExplore className="size-5" />
-        }
-    ]
+export const menuItems: TMenuItem[] = [
+    {
+        url: "/",
+        title: "Khám phá",
+        icon: <IconPlay className="size-5" />
+    },
+    {
+        url: "/explore",
+        title: "Khu Vực Học Tập",
+        icon: <IconExplore className="size-5" />
+    }
+]
