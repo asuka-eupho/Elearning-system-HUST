@@ -8,6 +8,7 @@ export async function POST(req: Request) {
     const svix_id = headers().get("svix-id") ?? "";
     const svix_timestamp = headers().get("svix-timestamp") ?? "";
     const svix_signature = headers().get("svix-signature") ?? "";
+
     if (!process.env.WEBHOOK_SECRET) {
         throw new Error("WEBHOOK_SECRET is not set");
     }
@@ -16,7 +17,7 @@ export async function POST(req: Request) {
     }
     const payload = await req.json();
     const body = JSON.stringify(payload);
-
+    // webhook secret
     const sivx = new Webhook(process.env.WEBHOOK_SECRET);
 
     let msg: WebhookEvent;

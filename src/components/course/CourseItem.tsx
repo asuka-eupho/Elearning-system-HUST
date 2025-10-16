@@ -33,7 +33,7 @@ const CourseItem = () => {
                     priority />
             </Link>
             <div className='pt-4'>
-                <h3 className='font-bold text-lg mb-3'>{data.title}</h3>
+                <h3 className='font-bold text-lg mb-3'>haa</h3>
                 <div className="flex items-center gap-3 mb-5 text-xs text-gray-500 dark:text-grayDark">
                     {courseInfo.map((item, index) => (
                         <div className="flex items-center gap-2" key={index}>
@@ -43,12 +43,12 @@ const CourseItem = () => {
                     ))}
 
                     <span className="font-bold text-primary ml-auto text-base">
-                        {data.price}
+                        10000
                     </span>
                 </div>
 
                 <Link
-                    href={`/course/${data.slug}`}
+                    href={`/course/hihi`}
                     className="flex items-center justify-center w-full mt-10 rounded-lg text-white font-semibold bg-primary h-12"
                 >
                     Xem chi tiết

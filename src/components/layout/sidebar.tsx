@@ -4,9 +4,11 @@ import React from 'react'
 import ActiceLink from '../common/ActiveLink';
 import { TMenuItem } from '@/types';
 import { ModeToggle } from '../common/ModeToggle';
-import { UserButton } from '@clerk/nextjs';
+import { useAuth, UserButton } from '@clerk/nextjs';
+import { IconUsers } from '../icons';
 
 const Sidebar = () => {
+    const { userId } = useAuth()
     return (
         <div className='p-4 border-r border-r-gray-300 dark:border-opacity-10 bg-white dark:bg-grayDarker lg:flex flex-col'>
             <a href="/" className='font-bold flex items-center text-2xl mb-2 '>
@@ -26,7 +28,11 @@ const Sidebar = () => {
             </ul>
             <div className='flex items-center justify-end gap-2'>
                 <ModeToggle></ModeToggle>
-                <UserButton />
+                {!userId ? (
+                    <Link href="/sign-in"
+                        className="size-10 rounded-lg bg-primary text-white flex items-center justify-center p-1"><IconUsers />Sign In</Link>
+                ) : <UserButton />}
+
             </div>
         </div>
     )
