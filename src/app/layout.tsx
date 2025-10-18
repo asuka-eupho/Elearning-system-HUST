@@ -5,6 +5,8 @@ import { manrope } from "@/utils";
 import Sidebar from "@/components/layout/sidebar";
 import { ClerkProvider } from "@clerk/nextjs";
 import { ThemeProvider } from "@/components/common/ThemeProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata: Metadata = {
   title: "HUST Elearning App",
@@ -28,6 +30,10 @@ export default function RootLayout({
             disableTransitionOnChange
           >
             {children}
+            <ToastContainer
+              autoClose={2000}
+              position="top-right"
+            />
           </ThemeProvider>
         </body>
       </html>
