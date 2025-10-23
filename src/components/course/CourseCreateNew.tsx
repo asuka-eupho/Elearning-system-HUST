@@ -9,6 +9,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from '../ui/button';
 import { toast } from "react-toastify";
 import slugify from "slugify";
+import { useRouter } from 'next/router';
+import { createCourse } from '@/lib/actions/course.action';
 
 const formSchema = z.object({
     title: z.string().min(10, "Tên khóa học phải có ít nhất 10 ký tự"),
@@ -18,6 +20,7 @@ const formSchema = z.object({
 const CourseCreateNew = ({ user }: { user: IUser }) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const router = useRouter();
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
