@@ -1,3 +1,4 @@
+"use client";
 import { ICourse } from '@/database/course.model';
 import { ECourseLevel, ECourseStatus } from '@/types/enums';
 import { useRouter } from 'next/router';
