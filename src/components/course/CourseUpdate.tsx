@@ -12,8 +12,18 @@ import { toast } from 'react-toastify';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import { Textarea } from '../ui/textarea';
 import { IconAdd } from '../icons';
+import { courseStatus } from '@/constants';
 
 const formSchema = z.object({
     title: z.string().min(10, "Tên khóa học phải có ít nhất 10 ký tự"),
@@ -94,6 +104,8 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                         benefits: courseInfo.benefits,
                         qa: courseInfo.qa,
                     },
+                    status: values.status,
+                    level: values.level
                 },
             });
             if (values.slug) {
@@ -242,7 +254,21 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                         render={() => (
                             <FormItem>
                                 <FormLabel>Trạng thái</FormLabel>
-                                <FormControl></FormControl>
+                                <FormControl>
+                                    <Select>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Trạng thái khóa học" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {courseStatus.map((ss) => (
+                                                <SelectGroup>
+                                                    <SelectItem value={ss.value} key={ss.value}>{ss.title}</SelectItem>
+                                                </SelectGroup>
+                                            ))}
+
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}
