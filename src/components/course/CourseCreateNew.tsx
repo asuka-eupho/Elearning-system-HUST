@@ -51,7 +51,8 @@ const CourseCreateNew = ({ user }: { user: IUser }) => {
             if (res?.data) {
                 router.push(`/manage/course/update?slug=${res.data.slug}`);
             }
-        } catch (error) {
+        } catch (_error) {
+            toast.error("Có lỗi xảy ra khi tạo khóa học");
         } finally {
             setIsSubmitting(false);
         }

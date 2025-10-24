@@ -10,7 +10,7 @@ import { IconUsers } from '../icons';
 const Sidebar = () => {
     const { userId } = useAuth()
     return (
-        <div className='p-4 border-r border-r-gray-300 dark:border-opacity-10 bg-white dark:bg-grayDarker lg:flex flex-col'>
+        <div className='hidden p-4 border-r border-r-gray-300 dark:border-opacity-10 bg-white dark:bg-grayDarker lg:flex flex-col'>
             <a href="/" className='font-bold flex items-center text-2xl mb-2 '>
                 <img className='size-20' src="https://upload.wikimedia.org/wikipedia/vi/e/ef/Logo_%C4%90%E1%BA%A1i_h%E1%BB%8Dc_B%C3%A1ch_Khoa_H%C3%A0_N%E1%BB%99i.svg" alt="" />
                 <span className='text-primary'>H</span>

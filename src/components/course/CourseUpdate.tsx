@@ -195,7 +195,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                     <FormField
                         control={form.control}
                         name="image"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <FormLabel>Ảnh đại diện</FormLabel>
                                 <FormControl>
@@ -239,7 +239,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                     <FormField
                         control={form.control}
                         name="status"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <FormLabel>Trạng thái</FormLabel>
                                 <FormControl></FormControl>
@@ -250,7 +250,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                     <FormField
                         control={form.control}
                         name="level"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <FormLabel>Trình độ</FormLabel>
                                 <FormControl></FormControl>
@@ -261,7 +261,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                     <FormField
                         control={form.control}
                         name="info.requirements"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <FormLabel className="flex items-center justify-between gap-5">
                                     <span>Yêu cầu</span>
@@ -300,7 +300,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                     <FormField
                         control={form.control}
                         name="info.benefits"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem>
                                 <FormLabel className="flex items-center justify-between gap-5">
                                     <span>Lợi ích</span>
@@ -339,7 +339,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                     <FormField
                         control={form.control}
                         name="info.qa"
-                        render={({ field }) => (
+                        render={() => (
                             <FormItem className="col-start-1 col-end-3">
                                 <FormLabel className="flex items-center justify-between gap-5">
                                     <span>Q.A</span>
