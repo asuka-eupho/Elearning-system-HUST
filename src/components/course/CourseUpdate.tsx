@@ -23,7 +23,9 @@ import {
 } from "@/components/ui/select"
 import { Textarea } from '../ui/textarea';
 import { IconAdd } from '../icons';
-import { courseStatus } from '@/constants';
+import { courseLevel, courseStatus } from '@/constants';
+import { UploadButton } from '@/utils/uploadthing';
+import Image from 'next/image';
 
 const formSchema = z.object({
     title: z.string().min(10, "Tên khóa học phải có ít nhất 10 ký tự"),
@@ -84,7 +86,8 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                 qa: data.info.qa,
             },
         }
-    })
+    });
+    const imageWatch = form.watch("image")
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
         setIsSubmitting(true);
@@ -105,7 +108,8 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                         qa: courseInfo.qa,
                     },
                     status: values.status,
-                    level: values.level
+                    level: values.level,
+                    image: values.image
                 },
             });
             if (values.slug) {
@@ -209,9 +213,21 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                         name="image"
                         render={() => (
                             <FormItem>
-                                <FormLabel>Ảnh đại diện</FormLabel>
+                                <FormLabel>Ảnh Nền - Thumbnail khóa học</FormLabel>
                                 <FormControl>
-                                    <div className="h-[200px] bg-white rounded-md border border-gray-200"></div>
+                                    <div className="h-[200px] bg-white rounded-md border border-gray-200 flex items-center justify-center relative">
+                                        {!imageWatch ? <UploadButton
+                                            endpoint="imageUploader"
+                                            onClientUploadComplete={(res) => {
+                                                console.log(res)
+                                                form.setValue("image", res[0].ufsUrl);
+                                            }}
+                                            onUploadError={(error: Error) => {
+                                                console.log(error)
+                                            }}
+                                        /> : <Image alt='' src={imageWatch} fill className="w-full h-full object-cover" />}
+
+                                    </div>
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>
@@ -279,7 +295,21 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                         render={() => (
                             <FormItem>
                                 <FormLabel>Trình độ</FormLabel>
-                                <FormControl></FormControl>
+                                <FormControl>
+                                    <Select>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Mức độ khóa học" />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            {courseLevel.map((ss) => (
+                                                <SelectGroup>
+                                                    <SelectItem value={ss.value} key={ss.value}>{ss.title}</SelectItem>
+                                                </SelectGroup>
+                                            ))}
+
+                                        </SelectContent>
+                                    </Select>
+                                </FormControl>
                                 <FormMessage />
                             </FormItem>
                         )}

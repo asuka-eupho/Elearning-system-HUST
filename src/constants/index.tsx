@@ -48,3 +48,8 @@ export const courseLevel: {
             value: ECourseLevel.ADVANCED
         }
     ];
+export const courseLevelTitle: Record<ECourseLevel, string> = {
+    [ECourseLevel.BEGINNER]: "Cơ bản",
+    [ECourseLevel.INTERMEDIATE]: "Trung bình-Khá",
+    [ECourseLevel.ADVANCED]: "Nâng cao",
+}
