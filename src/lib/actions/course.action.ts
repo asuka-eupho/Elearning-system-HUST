@@ -34,7 +34,7 @@ export async function updateCourse(params: TUpdateCourseParams) {
             { slug: params.slug },
             params.updateData,
             { new: true });
-        revalidatePath("/");
+        revalidatePath(params.path || "/");
         return {
             success: true,
             message: "Cập nhật khóa học thành công!",
@@ -53,5 +53,13 @@ export async function getCourseBySlug({ slug }: { slug: string }): Promise<ICour
     } catch (error) {
         console.log(error);
     }
-
+}
+export async function getAllCourses(): Promise<ICourse[] | undefined> {
+    try {
+        connectToDatabase();
+        const courses = await Course.find();
+        return courses
+    } catch (error) {
+        console.log(error)
+    }
 }

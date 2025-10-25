@@ -112,7 +112,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                     image: values.image
                 },
             });
-            if (values.slug) {
+            if (values.slug !== data.slug) {
                 router.replace(`/manage/course/update?slug=${values.slug}`)
             }
             if (res?.success) {
@@ -277,9 +277,9 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                                         </SelectTrigger>
                                         <SelectContent>
                                             {courseStatus.map((ss) => (
-                                                <SelectGroup>
-                                                    <SelectItem value={ss.value} key={ss.value}>{ss.title}</SelectItem>
-                                                </SelectGroup>
+
+                                                <SelectItem value={ss.value} key={ss.value}>{ss.title}</SelectItem>
+
                                             ))}
 
                                         </SelectContent>
@@ -302,9 +302,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
                                         </SelectTrigger>
                                         <SelectContent>
                                             {courseLevel.map((ss) => (
-                                                <SelectGroup>
-                                                    <SelectItem value={ss.value} key={ss.value}>{ss.title}</SelectItem>
-                                                </SelectGroup>
+                                                <SelectItem value={ss.value} key={ss.value}>{ss.title}</SelectItem>
                                             ))}
 
                                         </SelectContent>

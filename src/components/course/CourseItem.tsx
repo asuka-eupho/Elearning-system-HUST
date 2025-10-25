@@ -2,15 +2,16 @@ import React from 'react'
 import { IconClock, IconEye, IconStar } from '../icons'
 import Link from 'next/link'
 import Image from 'next/image'
+import { ICourse } from '@/database/course.model'
 
-const CourseItem = () => {
+const CourseItem = ({ data }: { data: ICourse }) => {
     const courseInfo = [
         {
-            title: 15200,
+            title: data.views,
             icon: (className?: string) => <IconEye className={className}></IconEye>
         },
         {
-            title: 4.5,
+            title: data.rating[0],
             icon: (className?: string) => <IconStar className={className}></IconStar>,
         },
         {
@@ -24,7 +25,7 @@ const CourseItem = () => {
         <div className='bg-white dark:bg-grayDarker dark:border-opacity-10 border border-gray-200 p-4 rounded-2xl'>
             <Link href="#" className='block h-[180px] relative'>
                 <Image
-                    src="https://images.unsplash.com/photo-1716881763995-097b7a68ea3d?q=80&w=2787&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    src={data.image}
                     alt=""
                     width={300}
                     height={200}
@@ -43,7 +44,7 @@ const CourseItem = () => {
                     ))}
 
                     <span className="font-bold text-primary ml-auto text-base">
-                        10000
+                        {data.price.toLocaleString()} VND
                     </span>
                 </div>
 
