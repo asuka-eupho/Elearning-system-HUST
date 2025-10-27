@@ -7,32 +7,60 @@ const config: Config = {
 		"./src/**/*.{js,ts,jsx,tsx,mdx}",
 	],
 	theme: {
-		extend: {
-			colors: {
-				primary: "#E43636",
-				grayDarkest: "#131316",
-				grayDarker: "#212126",
-				grayDark: "#9394A1",
-			},
-			fontFamily: {
-				primary: ["var(--font-manrope)"]
-			},
-			keyframes: {
-				"accordion-down": {
-					from: { height: "0" },
-					to: { height: "var(--radix-accordion-content-height)" },
-				},
-				"accordion-up": {
-					from: { height: "var(--radix-accordion-content-height)" },
-					to: { height: "0" },
-				},
-			},
-			animation: {
-				"accordion-down": "accordion-down 0.2s ease-out",
-				"accordion-up": "accordion-up 0.2s ease-out",
-			},
-		}
-	},
+    	extend: {
+    		colors: {
+    			primary: '#E43636',
+    			grayDarkest: '#131316',
+    			grayDarker: '#212126',
+    			grayDark: '#9394A1'
+    		},
+    		fontFamily: {
+    			primary: [
+    				'var(--font-manrope)'
+    			]
+    		},
+    		keyframes: {
+    			'accordion-down': {
+    				from: {
+    					height: '0'
+    				},
+    				to: {
+    					height: 'var(--radix-accordion-content-height)'
+    				}
+    			},
+    			'accordion-up': {
+    				from: {
+    					height: 'var(--radix-accordion-content-height)'
+    				},
+    				to: {
+    					height: '0'
+    				}
+    			},
+    			'accordion-down': {
+    				from: {
+    					height: '0'
+    				},
+    				to: {
+    					height: 'var(--radix-accordion-content-height)'
+    				}
+    			},
+    			'accordion-up': {
+    				from: {
+    					height: 'var(--radix-accordion-content-height)'
+    				},
+    				to: {
+    					height: '0'
+    				}
+    			}
+    		},
+    		animation: {
+    			'accordion-down': 'accordion-down 0.2s ease-out',
+    			'accordion-up': 'accordion-up 0.2s ease-out',
+    			'accordion-down': 'accordion-down 0.2s ease-out',
+    			'accordion-up': 'accordion-up 0.2s ease-out'
+    		}
+    	}
+    },
 	plugins: [require("tailwindcss-animate")],
 };
 export default withUt(config);

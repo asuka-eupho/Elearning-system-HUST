@@ -5,7 +5,8 @@ export type TActiveLinkProps = {
 export type TMenuItem = {
     url: string;
     title: string;
-    icon?: React.ReactNode
+    icon?: React.ReactNode;
+    onlyIcon?: boolean
 }
 //user
 export type TCreateUserParams = {

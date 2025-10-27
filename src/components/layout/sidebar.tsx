@@ -37,16 +37,17 @@ const Sidebar = () => {
         </div>
     )
 }
-function MenuItem({
+export function MenuItem({
     url = "/",
     title = "",
-    icon
+    icon,
+    onlyIcon
 }: TMenuItem) {
     return (
         <li>
             <ActiceLink url={url}>
                 {icon}
-                {title}
+                {onlyIcon ? null : title}
             </ActiceLink>
         </li>
     )

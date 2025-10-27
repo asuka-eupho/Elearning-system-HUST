@@ -1,6 +1,6 @@
 import CourseGrid from '@/components/common/CourseGrid'
+import HeadingView from '@/components/common/HeadingView'
 import CourseItem from '@/components/course/CourseItem'
-import Heading from '@/components/typography/Heading'
 import { getAllCourses } from '@/lib/actions/course.action'
 import React from 'react'
 
@@ -8,7 +8,7 @@ const page = async () => {
     const courses = (await getAllCourses()) || [];
     return (
         <div>
-            <Heading>Khám Phá Các Khóa Học</Heading>
+            <HeadingView>Khám Phá Các Khóa Học</HeadingView>
             <CourseGrid>
                 {courses.length > 0 &&
                     courses?.map((item) => (

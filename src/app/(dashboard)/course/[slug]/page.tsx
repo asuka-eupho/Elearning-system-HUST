@@ -3,6 +3,12 @@ import { Button } from '@/components/ui/button'
 import { courseLevelTitle } from '@/constants';
 import { getCourseBySlug } from '@/lib/actions/course.action'
 import Image from 'next/image';
+import {
+    Accordion,
+    AccordionContent,
+    AccordionItem,
+    AccordionTrigger,
+} from "@/components/ui/accordion"
 import React from 'react'
 
 function BoxInfo({
@@ -68,7 +74,7 @@ const page = async (
                 <BoxSection title="Thông tin">
                     <div className="grid grid-cols-4 gap-5 mb-10">
                         <BoxInfo title="Bài học">100</BoxInfo>
-                        <BoxInfo title="Lượt xem">{data.views}</BoxInfo>
+                        <BoxInfo title="Lượt xem">{data.views.toLocaleString()}</BoxInfo>
                         <BoxInfo title="Trình độ">{courseLevelTitle[data.level]}</BoxInfo>
                         <BoxInfo title="Thời lượng">100</BoxInfo>
                     </div>
@@ -121,10 +127,15 @@ const page = async (
                 </BoxSection>
                 <BoxSection title="Q.A">
                     {data.info.qa.map((qa, index) => (
-                        <div key={index}>
-                            <div>{qa.question}</div>
-                            <div>{qa.answer}</div>
-                        </div>
+                        <Accordion type="single" collapsible key={index}>
+                            <AccordionItem value={qa.question}>
+                                <AccordionTrigger>{qa.question}</AccordionTrigger>
+                                <AccordionContent>
+                                    {qa.answer}
+                                </AccordionContent>
+                            </AccordionItem>
+                        </Accordion>
+
                     ))}
                 </BoxSection>
             </div>

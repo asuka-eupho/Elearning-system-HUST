@@ -86,14 +86,20 @@ const CourseManage = ({ courses }: { courses: ICourse[] }) => {
     }
 
     return (
-        <div>
-            <div className="flex items-center justify-center mb-10">
+        <>
+            <Link href="/manage/course/new" className="size-10 rounded-full bg-purple-600 flexCenter text-white fixed right-5 bottom-5 hover:animate-bounce">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+                </svg>
+
+            </Link>
+            <div className="flex flex-col lg:flex-row lg:items-center gap-5 justify-center mb-10">
                 <HeadingView >Quản Lý Khóa Học</HeadingView>
-                <div className="w-[300px]">
+                <div className="w-full lg:w-[300px]">
                     <Input placeholder='Tìm kiếm khóa học...' />
                 </div>
             </div>
-            <Table>
+            <Table className='table-responsive'>
                 <TableHeader>
                     <TableRow>
                         <TableHead className="w-[100px]">TT Khóa Học</TableHead>
@@ -118,7 +124,7 @@ const CourseManage = ({ courses }: { courses: ICourse[] }) => {
                                         />
                                     </div>
                                     <div className="flex flex-col gap-1">
-                                        <h3 className='font-bold text-base'>{course.title}</h3>
+                                        <h3 className='font-bold text-sm lg:text-base'>{course.title}</h3>
                                         <h4 className='text-sm text-slate-500'>{new Date(course.created_at).toLocaleDateString("vi-VI")}</h4>
                                     </div>
                                 </TableCell>
@@ -168,7 +174,7 @@ const CourseManage = ({ courses }: { courses: ICourse[] }) => {
 
                 </button>
             </div>
-        </div>
+        </>
     )
 }
 
