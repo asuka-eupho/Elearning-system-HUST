@@ -1,3 +1,7 @@
+import HeadingView from '@/components/common/HeadingView'
+import CourseUpdateContent from '@/components/course/CourseUpdateContent'
+import { getCourseBySlug } from '@/lib/actions/course.action'
+
 import React from 'react'
 
 const page = async ({ searchParams }:
@@ -6,8 +10,15 @@ const page = async ({ searchParams }:
             slug: string
         }
     }) => {
+    const findCourse = await getCourseBySlug({ slug: searchParams.slug });
+    if (!findCourse) return <div>Course Not Found!</div>
     return (
-        <div>page</div>
+        <>
+            <HeadingView>
+                Nội dung:<strong className='text-primary'>{findCourse.title}</strong>
+            </HeadingView>
+            <CourseUpdateContent course={JSON.parse(JSON.stringify(findCourse))}></CourseUpdateContent>
+        </>
     )
 }
 

@@ -10,6 +10,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import React from 'react'
+import { TUpdateLessonInLecture } from '@/types';
 
 function BoxInfo({
     title,
@@ -41,8 +42,11 @@ const page = async (
     }
 ) => {
     const data = await getCourseBySlug({ slug: params.slug });
+
     if (!data) return null;
+
     const videoId = data.intro_url?.split("v=")[1]; // 1 là sẽ lấy vế sau dấu "="
+    const lectures = data.lectures || []
     return (
         <div className="grid lg:grid-cols-[2fr,1fr] gap-10 min-h-screen">
             <div>
@@ -77,6 +81,36 @@ const page = async (
                         <BoxInfo title="Lượt xem">{data.views.toLocaleString()}</BoxInfo>
                         <BoxInfo title="Trình độ">{courseLevelTitle[data.level]}</BoxInfo>
                         <BoxInfo title="Thời lượng">100</BoxInfo>
+                    </div>
+                </BoxSection>
+                <BoxSection title="Nội dung khóa học">
+                    <div>
+                        {lectures.map((lecture: TUpdateLessonInLecture) => (
+                            <Accordion
+                                type="single"
+                                key={lecture._id}
+                                collapsible
+                                className="w-full"
+                            >
+                                <AccordionItem value={lecture._id}>
+                                    <AccordionTrigger>
+                                        <div className="flex items-center justify-between gap-3 w-full pr-5">
+                                            <>
+                                                <div>{lecture.title}</div>
+                                            </>
+                                        </div>
+                                    </AccordionTrigger>
+                                    <AccordionContent className="flex flex-col gap-4 text-balance">
+                                        <p>
+                                            Our flagship product combines cutting-edge technology with sleek
+                                            design. Built with premium materials, it offers unparalleled
+                                            performance and reliability.
+                                        </p>
+                                    </AccordionContent>
+                                </AccordionItem>
+                            </Accordion>
+                        ))}
+
                     </div>
                 </BoxSection>
                 <BoxSection title="Yêu cầu">
