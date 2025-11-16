@@ -1,3 +1,4 @@
+"use client"
 import React, { MouseEvent, useState } from 'react'
 import {
     Accordion,
@@ -6,7 +7,7 @@ import {
     AccordionTrigger,
 } from "@/components/ui/accordion"
 import { commonClassNames } from '@/constants'
-import { IconDelete, IconEdit } from '../icons'
+import { IconCancel, IconCheck, IconDelete, IconEdit } from '../icons'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { createLecture, updateLecture } from '@/lib/actions/lecture.action'
@@ -15,7 +16,9 @@ import Swal from 'sweetalert2'
 import { ILecture } from '@/database/lecture.model'
 import { TCourseLectureUpdateParams, TUpdateLessonInLecture } from '@/types'
 import { cn } from '@/lib/utils'
-import { createLesson } from '@/lib/actions/lesson.action'
+import { createLesson, updateLesson } from '@/lib/actions/lesson.action'
+import slugify from 'slugify'
+import LessonItemUpdate from '../lesson/LessonItemUpdate'
 
 const CourseUpdateContent = ({ course }: {
     course: TCourseLectureUpdateParams
@@ -23,7 +26,9 @@ const CourseUpdateContent = ({ course }: {
     const lectures = course.lectures
 
     const [lectureEdit, setLectureEdit] = useState("");
+    const [lessonEdit, setLessonEdit] = useState("");
     const [lectureIdEdit, setLectureIdEdit] = useState("");
+    const [lessonIdEdit, setLessonIdEdit] = useState("")
 
     const handleAddNewLec = async () => {
         try {
@@ -112,6 +117,25 @@ const CourseUpdateContent = ({ course }: {
             console.log(error)
         }
     }
+    const handleUpdateLesson = async (e: MouseEvent<HTMLSpanElement>, lessonId: string) => {
+        try {
+            const res = await updateLesson({
+                lessonId,
+                path: `manage/course/update-content?slug=${course.slug}`,
+                updateData: {
+                    title: lessonEdit,
+                    slug: slugify(lessonEdit, { lower: true, locale: "vi", remove: /[*~.()'"!:@]/g, })
+                }
+            });
+            if (res?.success) {
+                toast.success("Cập nhật bài học thành công!");
+                setLessonEdit("")
+                setLessonIdEdit("")
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
     return (
         <div>
             {lectures.map((lecture: TUpdateLessonInLecture, index) => (
@@ -136,9 +160,7 @@ const CourseUpdateContent = ({ course }: {
                                                 <span className={cn(commonClassNames.action, "text-green-500")}
                                                     onClick={(e) => handleUpdateLecture(e, lecture._id)}
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-                                                    </svg>
+                                                    <IconCheck />
                                                 </span>
                                                 <span className={cn(commonClassNames.action, "text-red-500")}
                                                     onClick={(e) => {
@@ -146,10 +168,7 @@ const CourseUpdateContent = ({ course }: {
                                                         setLectureIdEdit("")
                                                     }}
                                                 >
-                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="w-6 h-6">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                                    </svg>
-
+                                                    <IconCancel />
                                                 </span>
                                             </div>
                                         </>
@@ -168,20 +187,64 @@ const CourseUpdateContent = ({ course }: {
                                                 </span>
                                             </div>
                                         </>
-
                                     }
-
-
                                 </div>
                             </AccordionTrigger>
                             <AccordionContent className="border-none !bg-transparent text-balance">
                                 <div className="flex flex-col gap-5">
                                     {lecture.lessons.map((lesson) => (
-                                        <Accordion type="single" key={lesson._id} collapsible>
+                                        <Accordion type="single" key={lesson._id} collapsible={!lessonEdit}>
                                             <AccordionItem value={lesson._id} >
-                                                <AccordionTrigger>{lesson.title}</AccordionTrigger>
+                                                <AccordionTrigger>
+                                                    <div className="flex items-center justify-between gap-3 w-full pr-5">
+                                                        {lesson._id === lessonIdEdit ? (
+                                                            <>
+                                                                <div className='w-full'>
+                                                                    <Input defaultValue={lecture.title}
+                                                                        placeholder='Tên Bài Học...'
+                                                                        onChange={(e) => setLessonEdit(e.target.value)}
+                                                                    />
+                                                                </div>
+                                                                <div className='flex gap-2'>
+                                                                    <span className={cn(commonClassNames.action, "text-green-500")}
+                                                                        onClick={(e) => handleUpdateLesson(e, lesson._id)}
+                                                                    >
+                                                                        <IconCheck />
+                                                                    </span>
+                                                                    <span className={cn(commonClassNames.action, "text-red-500")}
+                                                                        onClick={(e) => {
+                                                                            e.stopPropagation();
+                                                                            setLessonIdEdit("")
+                                                                        }}
+                                                                    >
+                                                                        <IconCancel />
+                                                                    </span>
+                                                                </div>
+                                                            </>
+                                                        ) :
+                                                            <>
+                                                                <div>{lesson.title}</div>
+                                                                <div className="flex gap-2">
+                                                                    <span className={commonClassNames.action} onClick={(e) => {
+                                                                        e.stopPropagation();
+                                                                        setLessonIdEdit(lesson._id);
+                                                                    }}>
+                                                                        <IconEdit />
+                                                                    </span>
+                                                                    <span className={commonClassNames.action}
+                                                                    // onClick={e => handleDeleteLesson(e, lecture._id)}
+                                                                    >
+                                                                        <IconDelete />
+                                                                    </span>
+                                                                </div>
+                                                            </>
+                                                        }
+                                                    </div>
+                                                </AccordionTrigger>
                                                 <AccordionContent>
-                                                    Yes. It adheres to the WAI-ARIA design pattern.
+                                                    <LessonItemUpdate lesson={lesson}>
+
+                                                    </LessonItemUpdate>
                                                 </AccordionContent>
                                             </AccordionItem>
                                         </Accordion>

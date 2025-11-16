@@ -1,4 +1,4 @@
-import { TCreateLessonParams } from "@/types";
+import { TCreateLessonParams, TUpdateLessonParams } from "@/types";
 import { connectToDatabase } from "../mongoose";
 import Course from "@/database/course.model";
 import Lecture from "@/database/lecture.model";
@@ -25,5 +25,22 @@ export async function createLesson(params: TCreateLessonParams) {
     } catch (error) {
         console.log(error)
     }
+}
+export async function updateLesson(params: TUpdateLessonParams) {
+    try {
+        connectToDatabase();
+        const res = await Lesson.findByIdAndUpdate(
+            params.lessonId,
+            params.updateData,
+            { new: true }
+        );
+        revalidatePath(params.path || "/")
+        if (!res) return;
+        return {
+            success: true
+        }
 
+    } catch (error) {
+        console.log(error)
+    }
 }

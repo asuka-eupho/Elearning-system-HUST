@@ -10,3 +10,5 @@ export { default as IconOrder } from "./IconOrder";
 export { default as IconStar } from "./IconStar";
 export { default as IconEdit } from "./IconEdit";
 export { default as IconDelete } from "./IconDelete";
+export { default as IconCheck } from "./IconCheck";
+export { default as IconCancel } from "./IconCancel";
