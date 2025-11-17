@@ -7,9 +7,9 @@ const page = () => {
     return (
         <div>
             <Heading>Khám Phá Các Khóa Học</Heading>
-            <CourseGrid>
+            {/* <CourseGrid>
                 <CourseItem></CourseItem>
-            </CourseGrid>
+            </CourseGrid> */}
         </div>
     )
 }

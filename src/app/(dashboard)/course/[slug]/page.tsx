@@ -92,7 +92,7 @@ const page = async (
                                 collapsible
                                 className="w-full"
                             >
-                                <AccordionItem value={lecture._id}>
+                                <AccordionItem value={lecture._id.toString()}>
                                     <AccordionTrigger>
                                         <div className="flex items-center justify-between gap-3 w-full pr-5">
                                             <>
@@ -100,12 +100,16 @@ const page = async (
                                             </>
                                         </div>
                                     </AccordionTrigger>
-                                    <AccordionContent className="flex flex-col gap-4 text-balance">
-                                        <p>
-                                            Our flagship product combines cutting-edge technology with sleek
-                                            design. Built with premium materials, it offers unparalleled
-                                            performance and reliability.
-                                        </p>
+                                    <AccordionContent className="!bg-transparent border-none">
+                                        {lecture.lessons.map(lesson => (
+                                            <div key={lesson._id} className='flex items-center gap-3 bgDarkMode border borderDarkMode rounded-lg p-3 text-sm font-medium'>
+                                                <IconPlay className='size-4' />
+                                                <h4>{lesson.title}</h4>
+                                                <span className='ml-auto text-xs font-semibold'>
+                                                    {lesson.duration} phút
+                                                </span>
+                                            </div>
+                                        ))}
                                     </AccordionContent>
                                 </AccordionItem>
                             </Accordion>

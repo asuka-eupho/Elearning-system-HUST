@@ -1,15 +1,18 @@
 "use client";
 import { ILesson } from '@/database/lesson.model'
 import { zodResolver } from '@hookform/resolvers/zod';
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Form, useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import z from 'zod';
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Editor } from '@tinymce/tinymce-react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import { updateLesson } from '@/lib/actions/lesson.action';
+import { editorOptions } from '@/constants';
+import { useTheme } from 'next-themes';
 
 
 const formSchema = z.object({
@@ -23,6 +26,8 @@ const formSchema = z.object({
 const LessonItemUpdate = ({ lesson }: {
     lesson: ILesson
 }) => {
+    const editorRef = useRef<any>(null);
+    const theme = useTheme()
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -32,6 +37,15 @@ const LessonItemUpdate = ({ lesson }: {
             content: lesson.content
         }
     });
+
+    useEffect(() => {
+        if (editorRef.current) {
+            setTimeout(() => {
+                editorRef.current.setContent(lesson.content)
+            }, 1000)
+        }
+    }, [lesson.content])
+
     async function onSubmit(values: z.infer<typeof formSchema>) {
         try {
             const res = await updateLesson({
@@ -100,17 +114,26 @@ const LessonItemUpdate = ({ lesson }: {
                             control={form.control}
                             name="content"
                             render={({ field }) => (
-                                <FormItem>
+                                <FormItem className='col-start-1 col-end-3'>
                                     <FormLabel>Nội dung</FormLabel>
                                     <FormControl>
-
+                                        <Editor
+                                            apiKey={process.env.NEXT_PUBLIC_TINY_MCE_API_KEY}
+                                            onInit={(_evt: any, editor: any) => {
+                                                (editorRef.current = editor).setContent(
+                                                    lesson.content || ""
+                                                );
+                                            }}
+                                            value={field.value}
+                                            {...editorOptions(field, theme)}
+                                        />
                                     </FormControl>
                                     <FormMessage />
                                 </FormItem>
                             )}
                         />
                     </div>
-                    <div className="flex justify-end gap-5 items-center">
+                    <div className="flex justify-end gap-5 items-center mt-5">
                         <Button type='submit'></Button>
                         <Link href="/" className='text-sm text-slate-600'>Xem trước</Link>
                     </div>
