@@ -1,3 +1,4 @@
+"use client";
 import IconLeftArrow from '@/components/icons/IconLeftArrow'
 import IconRightArrow from '@/components/icons/IconRightArrow'
 import { Button } from '@/components/ui/button'

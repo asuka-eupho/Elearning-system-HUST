@@ -2,11 +2,13 @@ import React from 'react'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '../ui/accordion'
 import LessonItem from './LessonItem'
 import { TUpdateLessonInLecture } from '@/types'
+import { IHistory } from '@/database/history.model'
 
-const LessonContent = ({ lectures, course, slug }: {
+const LessonContent = ({ lectures, course, slug, histories = [] }: {
     lectures: TUpdateLessonInLecture[],
     course: string,
-    slug: string
+    slug: string,
+    histories: IHistory[]
 }) => {
     return (
         <div className='flex flex-col gap-5'>
@@ -31,8 +33,8 @@ const LessonContent = ({ lectures, course, slug }: {
                                     url={!course ? "" : `/${course}/lesson?slug=${lesson.slug}`}
                                     isActive={!slug ? false : lesson.slug === slug}
                                     key={lesson._id}
-                                    lesson={lesson}>
-
+                                    lesson={lesson ? JSON.parse(JSON.stringify(lesson)) : {}}
+                                    isChecked={histories.some((item) => item.lesson.toString() === lesson._id.toString())}>
                                 </LessonItem>
                             ))}
                         </AccordionContent>
