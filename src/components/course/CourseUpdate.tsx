@@ -1,23 +1,20 @@
 "use client";
 import { ICourse } from '@/database/course.model';
 import { ECourseLevel, ECourseStatus } from '@/types/enums';
-import { useRouter } from 'next/router';
 import { useImmer } from "use-immer";
 import React, { useState } from 'react'
 import z from 'zod';
-import { Form, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { updateCourse } from '@/lib/actions/course.action';
 import { toast } from 'react-toastify';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import {
     Select,
     SelectContent,
-    SelectGroup,
     SelectItem,
-    SelectLabel,
     SelectTrigger,
     SelectValue,
 } from "@/components/ui/select"
@@ -26,6 +23,7 @@ import { IconAdd } from '../icons';
 import { courseLevel, courseStatus } from '@/constants';
 import { UploadButton } from '@/utils/uploadthing';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
     title: z.string().min(10, "Tên khóa học phải có ít nhất 10 ký tự"),
@@ -126,7 +124,7 @@ const CourseUpdate = ({ data }: { data: ICourse }) => {
     }
 
     return (
-        <Form>
+        <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} autoComplete="off">
                 <div className="grid grid-cols-2 gap-8 mt-10 mb-8">
                     <FormField

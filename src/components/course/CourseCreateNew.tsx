@@ -1,16 +1,17 @@
 "use client"
 import { IUser } from '@/database/user.model';
 import React, { useState } from 'react'
-import { Form, useForm } from 'react-hook-form';
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
+import { useForm } from 'react-hook-form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '../ui/form';
 import { Input } from '../ui/input';
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from '../ui/button';
 import { toast } from "react-toastify";
 import slugify from "slugify";
-import { useRouter } from 'next/router';
+
 import { createCourse } from '@/lib/actions/course.action';
+import { useRouter } from 'next/navigation';
 
 const formSchema = z.object({
     title: z.string().min(10, "Tên khóa học phải có ít nhất 10 ký tự"),

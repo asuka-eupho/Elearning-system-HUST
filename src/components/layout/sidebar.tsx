@@ -1,3 +1,4 @@
+"use client"
 import { menuItems } from '@/constants';
 import Link from 'next/link';
 import React from 'react'

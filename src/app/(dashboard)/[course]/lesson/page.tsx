@@ -9,6 +9,8 @@ import LessonNavigation from './LessonNavigation';
 import HeadingView from '@/components/common/HeadingView';
 import LessonContent from '@/components/lesson/LessonContent';
 import { getHistory } from '@/lib/actions/history.action';
+import { auth } from '@clerk/nextjs/server';
+import { getUserInfo } from '@/lib/actions/user.actions';
 
 const page = async ({ params, searchParams }: {
     params: {
@@ -18,12 +20,20 @@ const page = async ({ params, searchParams }: {
         slug: string
     }
 }) => {
+    // check user role & has bought?
+    const { userId } = await auth()
+    if (!userId) return <PageNotFound />
+    const findUser = await getUserInfo({ userId })
+    if (!findUser) return <PageNotFound />
+
     const course = params.course;
     const slug = searchParams.slug;
 
     const findCourse = await getCourseBySlug({ slug: course })
     if (!findCourse) return null
     const courseId = findCourse?._id.toString()
+    //check buy course before?
+    if (!findUser.courses.includes(courseId as any)) return <PageNotFound />
 
     const lessonList = await findAllLessons({ course: courseId || "" });
 
