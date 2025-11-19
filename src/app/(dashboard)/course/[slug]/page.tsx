@@ -11,6 +11,8 @@ import {
 } from "@/components/ui/accordion"
 import React from 'react'
 import { TUpdateLessonInLecture } from '@/types';
+import LessonItem from '@/components/lesson/LessonItem';
+import LessonContent from '@/components/lesson/LessonContent';
 
 function BoxInfo({
     title,
@@ -84,38 +86,7 @@ const page = async (
                     </div>
                 </BoxSection>
                 <BoxSection title="Nội dung khóa học">
-                    <div>
-                        {lectures.map((lecture: TUpdateLessonInLecture) => (
-                            <Accordion
-                                type="single"
-                                key={lecture._id}
-                                collapsible
-                                className="w-full"
-                            >
-                                <AccordionItem value={lecture._id.toString()}>
-                                    <AccordionTrigger>
-                                        <div className="flex items-center justify-between gap-3 w-full pr-5">
-                                            <>
-                                                <div>{lecture.title}</div>
-                                            </>
-                                        </div>
-                                    </AccordionTrigger>
-                                    <AccordionContent className="!bg-transparent border-none">
-                                        {lecture.lessons.map(lesson => (
-                                            <div key={lesson._id} className='flex items-center gap-3 bgDarkMode border borderDarkMode rounded-lg p-3 text-sm font-medium'>
-                                                <IconPlay className='size-4' />
-                                                <h4>{lesson.title}</h4>
-                                                <span className='ml-auto text-xs font-semibold'>
-                                                    {lesson.duration} phút
-                                                </span>
-                                            </div>
-                                        ))}
-                                    </AccordionContent>
-                                </AccordionItem>
-                            </Accordion>
-                        ))}
-
-                    </div>
+                    <LessonContent lectures={lectures} course='' slug=''></LessonContent>
                 </BoxSection>
                 <BoxSection title="Yêu cầu">
                     {data.info.requirements.map((r, index) => (

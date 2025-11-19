@@ -55,3 +55,12 @@ export async function getLessonBySlug({ slug, course }: { slug: string, course: 
         console.log(error)
     }
 }
+export async function findAllLessons({ course }: { course: string }): Promise<ILesson[] | undefined> {
+    try {
+        connectToDatabase()
+        const lessons = await Lesson.find({ course });
+        return lessons
+    } catch (error) {
+        console.log(error)
+    }
+}
