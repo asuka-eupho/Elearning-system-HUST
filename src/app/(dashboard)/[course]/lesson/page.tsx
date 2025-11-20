@@ -1,4 +1,4 @@
-import PageNotFound from '@/app/page.not.found';
+import PageNotFound from '@/app/not-found';
 import IconLeftArrow from '@/components/icons/IconLeftArrow';
 import IconRightArrow from '@/components/icons/IconRightArrow';
 import { Button } from '@/components/ui/button';

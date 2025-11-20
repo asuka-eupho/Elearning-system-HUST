@@ -1,4 +1,4 @@
-import PageNotFound from '@/app/page.not.found'
+import PageNotFound from '@/app/not-found'
 import { getUserInfo } from '@/lib/actions/user.actions'
 import { EUserRole } from '@/types/enums'
 import { auth } from '@clerk/nextjs/server'
