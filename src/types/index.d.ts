@@ -2,16 +2,6 @@ import { ICourse } from "@/database/course.model";
 import { ILecture } from "@/database/lecture.model";
 import { ILesson } from "@/database/lesson.model";
 
-export type TActiveLinkProps = {
-    url: string,
-    children: React.ReactNode
-}
-export type TMenuItem = {
-    url: string;
-    title: string;
-    icon?: React.ReactNode;
-    onlyIcon?: boolean
-}
 //user
 export type TCreateUserParams = {
     clerkId: string;

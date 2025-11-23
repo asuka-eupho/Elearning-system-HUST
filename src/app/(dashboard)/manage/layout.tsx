@@ -8,6 +8,7 @@ import React from 'react'
 const AdminLayout = async ({ children }: { children: React.ReactNode }) => {
     const { userId } = await auth();
     if (!userId) return redirect("/sign-in");
+
     const user = await getUserInfo({ userId });
     if (user && user.role !== EUserRole.ADMIN) return <PageNotFound />;
     return (

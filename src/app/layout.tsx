@@ -39,12 +39,6 @@ export default function RootLayout({
   );
 
   if (!clerkPublishableKey) {
-    // During local dev or CI builds the key may be missing; avoid throwing
-    // a generic clerk error during prerender and give a helpful message.
-    // Note: Authentication features will not work without this env var.
-    // Set `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` in your environment or
-    // deployment settings (e.g. Vercel Project > Environment Variables).
-    // eslint-disable-next-line no-console
     console.warn(
       'Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: Clerk UI will be disabled.\n' +
       'Set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env.local or deployment settings.'
