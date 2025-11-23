@@ -10,7 +10,6 @@ const page = async () => {
     const mongoUser = await getUserInfo({ userId });
     if (!mongoUser) return null;
     return (
-
         <div>
             <HeadingView>Tạo Khóa Học Mới</HeadingView>
             <CourseCreateNew user={JSON.parse(JSON.stringify(mongoUser))}></CourseCreateNew>

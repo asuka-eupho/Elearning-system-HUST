@@ -1,12 +1,11 @@
-"use client"
-import { menuItems } from '@/constants';
+'use client';
 import Link from 'next/link';
 import React from 'react'
-import ActiceLink from '../common/ActiveLink';
-import { TMenuItem } from '@/types';
 import { ModeToggle } from '../common/ModeToggle';
 import { useAuth, UserButton } from '@clerk/nextjs';
 import { IconUsers } from '../icons';
+import MenuItem from '../common/MenuItem';
+import { menuItems } from '@/constants/menu-constant';
 
 const Sidebar = () => {
     const { userId } = useAuth()
@@ -28,29 +27,16 @@ const Sidebar = () => {
                 ))}
             </ul>
             <div className='flex items-center justify-end gap-2'>
-                <ModeToggle></ModeToggle>
-                {!userId ? (
+                <ModeToggle />
+                {userId ? <UserButton /> : (
                     <Link href="/sign-in"
-                        className="size-10 rounded-lg bg-primary text-white flex items-center justify-center p-1"><IconUsers />Sign In</Link>
-                ) : <UserButton />}
+                        className="size-10 rounded-lg bg-primary text-white flex items-center justify-center p-1">
+                        <IconUsers />
+                    </Link>
+                )}
 
             </div>
         </div>
-    )
-}
-export function MenuItem({
-    url = "/",
-    title = "",
-    icon,
-    onlyIcon
-}: TMenuItem) {
-    return (
-        <li>
-            <ActiceLink url={url}>
-                {icon}
-                {onlyIcon ? null : title}
-            </ActiceLink>
-        </li>
     )
 }
 

@@ -1,5 +1,7 @@
-import Sidebar, { MenuItem } from '@/components/layout/sidebar'
-import { menuItems } from '@/constants'
+import MenuItem from '@/components/common/MenuItem'
+import Sidebar from '@/components/layout/sidebar'
+import { menuItems } from '@/constants/menu-constant'
+
 import React from 'react'
 
 const layout = ({ children }: { children: React.ReactNode }) => {

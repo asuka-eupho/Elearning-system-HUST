@@ -17,26 +17,38 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <ClerkProvider>
-      <html lang="en">
-        <body
-          className={manrope.className}>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <ToastContainer
-              autoClose={2000}
-              position="top-right"
-            />
-          </ThemeProvider>
-        </body>
-      </html>
-    </ClerkProvider>
+  const clerkPublishableKey = process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY;
 
+  const content = (
+    <html lang="en">
+      <body className={manrope.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <ToastContainer
+            autoClose={2000}
+            position="top-right"
+          />
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+
+  if (!clerkPublishableKey) {
+    console.warn(
+      'Missing NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: Clerk UI will be disabled.\n' +
+      'Set NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY in your .env.local or deployment settings.'
+    );
+    return content;
+  }
+
+  return (
+    <ClerkProvider publishableKey={clerkPublishableKey}>
+      {content}
+    </ClerkProvider>
   );
 }

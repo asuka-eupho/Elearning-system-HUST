@@ -22,6 +22,7 @@ import { updateCourse } from '@/lib/actions/course.action'
 import { ECourseStatus } from '@/types/enums'
 import { toast } from 'react-toastify'
 import { Input } from '../ui/input'
+import BounceLink from '../common/BounceLink'
 
 
 const CourseManage = ({ courses }: { courses: ICourse[] }) => {
@@ -87,13 +88,8 @@ const CourseManage = ({ courses }: { courses: ICourse[] }) => {
 
     return (
         <>
-            <Link href="/manage/course/new" className="size-10 rounded-full bg-purple-600 flexCenter text-white fixed right-5 bottom-5 hover:animate-bounce">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                </svg>
-
-            </Link>
-            <div className="flex flex-col lg:flex-row lg:items-center gap-5 justify-center mb-10">
+            <BounceLink url='/manage/course/new' />
+            <div className="flex flex-col lg:flex-row lg:items-center gap-5 justify-between mb-10">
                 <HeadingView >Quản Lý Khóa Học</HeadingView>
                 <div className="w-full lg:w-[300px]">
                     <Input placeholder='Tìm kiếm khóa học...' />
